@@ -1,36 +1,20 @@
 import React from 'react'
 import {Image, Table, Modal, Button, FormGroup, FormControl} from 'react-bootstrap'
 import Transaction from './Transaction'
-// import EditModal from './EditModal'
 
 const TransactionTable = React.createClass({
-  getInitialState(){
-    return {
-      edit: false
-    }
+  deleteItem(id){
+
+    this.props.delete(id);
   },
-  deleteMenu(item){
-    this.props.delete(item.id);
+  updateItem(item){
+    this.props.update(item);
   },
-  // submit(newItem){
-  //   this.props.update(newItem)
-  // },
-  // showEdit(){
-  //   this.setState({edit: true})
-  // },
-  // updateItem(item){
-  //   this.setState({edit: false})
-  //   console.log('update')
-  // },
-  // closeEditModal(){
-  //   this.setState({edit: false})
-  // },
   render(){
       let productItems = this.props.list.map(item =>
-        <Transaction item={item} key={item._id} delete={this.props.delete} update={this.showEdit}/>
+        <Transaction item={item} key={item._id} delete={this.deleteItem} update={this.updateItem}/>
       )
     return (
-      <div>
         <div className="row">
         <Table>
           <thead>
@@ -47,8 +31,6 @@ const TransactionTable = React.createClass({
           </tbody>
         </Table>
         </div>
-      {/* <EditModal show={this.state.edit} submit={this.updateItem} onHide={this.closeEditModal}/> */}
-      </div>
     )
   }
 })

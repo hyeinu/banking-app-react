@@ -1,6 +1,7 @@
 import React from 'react'
 import {Image, Table, Modal, Button, FormGroup, FormControl} from 'react-bootstrap'
 import AddModal from './AddModal'
+import EditForm from './EditForm'
 import TransTable from './TransactionTable'
 
 const Home = React.createClass({
@@ -8,7 +9,9 @@ const Home = React.createClass({
     return {
       transactionslist: [],
       totalprice: 0,
-      addShow: false
+      addShow: false,
+      editShow: false,
+      editObj: {}
     }
   },
   setStateChange(){
@@ -34,6 +37,13 @@ const Home = React.createClass({
   },
   onAdd(transaction){
     this.setState({addShow: false})
+
+    if(transaction.credit){
+      return transaction
+    } else {
+      transaction.value = -1 * parseFloat(transaction.value);
+    }
+
     fetch('/api/banktrans', {
       method: 'POST',
       headers:{
@@ -45,7 +55,6 @@ const Home = React.createClass({
       return Response.json()
     })
     .then(data =>{
-      console.log(data)
       this.setState({transactionslist: this.state.transactionslist.concat(data)})
       this.setStateChange()
     })
@@ -59,6 +68,10 @@ const Home = React.createClass({
   },
   openAddModal(){
     this.setState({addShow: true })
+  },
+  openEditForm(item){
+    this.setState({editObj: item })
+    this.setState({editShow: true })
   },
   onDelete(id){
     let url = `/api/banktrans/${id}`
@@ -80,8 +93,8 @@ const Home = React.createClass({
       console.log('No Transaction Found', err);
     })
   },
-  update(item){
-    console.log('update', item)
+  onUpdate(obj){
+    console.log(obj);
   },
   render(){
     if(this.state.transactionslist.length){
@@ -97,7 +110,8 @@ const Home = React.createClass({
         <h4>New <Button onClick={this.openAddModal} className="btn-success fa fa-plus-square fa-sm"></Button></h4>
         </div>
         </div>
-        <TransTable list={this.state.transactionslist} delete={this.onDelete} update={this.update}/>
+        <EditForm show={this.state.editShow} onUpdate={this.onUpdate} editObj={this.state.editObj}/>
+        <TransTable list={this.state.transactionslist} delete={this.onDelete} update={this.openEditForm}/>
         <AddModal show={this.state.addShow} submit={this.onAdd} onHide={this.closeAddModal}/>
         </div>
       )

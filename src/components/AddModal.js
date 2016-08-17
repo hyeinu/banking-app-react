@@ -19,12 +19,7 @@ const AddModal = React.createClass({
     this.setState({credit: (event.target.value === 'Credit') ? true : false})
   },
   submission(){
-    if(this.state.credit){
-      this.props.submit(this.state)
-    } else {
-      this.setState({value: -this.state.value})
-      this.props.submit(this.state)
-    }
+    this.props.submit(this.state)
     this.setState({name: '', description: '', value: 0, credit: false, id: ''})
   },
   render() {
