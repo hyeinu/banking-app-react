@@ -8,6 +8,7 @@ const TransactionTable = React.createClass({
     this.props.delete(id);
   },
   updateItem(item){
+    console.log("item:", item)
     this.props.update(item);
   },
   render(){

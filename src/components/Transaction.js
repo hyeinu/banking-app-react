@@ -3,6 +3,7 @@ import {Button, FormGroup, FormControl} from 'react-bootstrap'
 
 const Transaction = React.createClass({
   editItem(item){
+    console.log("item:", item)
     this.props.update(item);
   },
   delete(id){
@@ -11,7 +12,7 @@ const Transaction = React.createClass({
   render(){
     let {description, _id, value, credit, date} = this.props.item;
       return(
-        <tr>
+        <tr id={_id}>
         <td className="col-xs-3">{date}</td>
         <td className="col-xs-3">{description}</td>
         <td className="col-xs-2">{value}</td>

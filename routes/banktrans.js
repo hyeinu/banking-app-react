@@ -11,7 +11,7 @@ router.delete('/:id', (req, res) => {
 })
 
 router.put('/', (req, res) =>{
-  BankTran.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, updatedTransaction) =>{
+  BankTran.findByIdAndUpdate(req.body.id, req.body, {new: true}, (err, updatedTransaction) =>{
     if (err || !updatedTransaction) return res.status(400).send(err || 'Transaction not Found!')
     return res.status(200).json(updatedTransaction)
   })

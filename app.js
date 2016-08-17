@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 const MONGO_URL = process.env.MONGODB_URI || 'mongodb://localhost/bankdb';
+const PORT = process.env.PORT || 3000;
 mongoose.connect(MONGO_URL, err =>{
   console.log(err || `Mongo connected to ${MONGO_URL}`)
 });
@@ -65,6 +66,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

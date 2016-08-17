@@ -94,7 +94,34 @@ const Home = React.createClass({
     })
   },
   onUpdate(obj){
-    console.log(obj);
+    console.log("obj:", obj)
+    if(obj.credit){
+      return obj
+    } else {
+      obj.value = -1 * parseFloat(obj.value);
+    }
+
+    fetch(`/api/banktrans`,{
+      method: 'PUT',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    })
+    .then(()=>{
+      return fetch('/api/banktrans')
+    })
+    .then(Response =>{
+      return Response.json()
+    })
+    .then(data =>{
+      this.setState({transactionslist: data})
+      this.setStateChange()
+    })
+    .catch(err =>{
+      return err;
+      console.log('No Transaction Found', err);
+    })
   },
   render(){
     if(this.state.transactionslist.length){
@@ -116,7 +143,7 @@ const Home = React.createClass({
         </div>
       )
     } else {
-    return (<h1>Loading...</h1>)
+    return (<h4>New <Button onClick={this.openAddModal} className="btn-success fa fa-plus-square fa-sm"></Button></h4>)
     }
   }
 })
