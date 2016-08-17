@@ -18,10 +18,6 @@ const AddModal = React.createClass({
   select(event){
     this.setState({credit: (event.target.value === 'Credit') ? true : false})
   },
-  // submit(){
-  //   this.setState({name: '', description: '', value: 0, credit: false})
-  //   this.props.submit(this.state);
-  // },
   submission(e){
     e.preventDefault()
     this.setState({name: '', description: '', value: 0, credit: false})
@@ -47,11 +43,10 @@ const AddModal = React.createClass({
               <option value="Debit">Debit</option>
             </FormControl>
           </FormGroup>
-          <button>bub</button>
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button onClick={this.submit}>Add New Transaction</Button>
-          <Button onClick={this.props.onHide}>Close</Button> */}
+          <Button>Add New Transaction</Button>
+          <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
         </FormGroup>
         </form>

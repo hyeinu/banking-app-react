@@ -1,7 +1,7 @@
 import React from 'react'
 import {Image, Table, Modal, Button, FormGroup, FormControl} from 'react-bootstrap'
 import AddModal from './AddModal'
-//import TransTable from './TransactionTable'
+import TransTable from './TransactionTable'
 
 const Home = React.createClass({
   getInitialState(){
@@ -17,7 +17,6 @@ const Home = React.createClass({
       return Response.json()
     })
     .then(data =>{
-      console.log('data ', data)
       this.setState({transactionslist: data})
     })
     .catch(err =>{
@@ -27,6 +26,7 @@ const Home = React.createClass({
   },
   onAdd(transaction){
     this.setState({addShow: false})
+    console.log("transaction:", transaction)
     // this.setState({productlist: this.state.productlist.concat(transaction)})
     // this.setState({totalItems: this.state.productlist.length})
   },
@@ -34,7 +34,6 @@ const Home = React.createClass({
     this.setState({addShow: false})
   },
   openAddModal(){
-    console.log('openAddModal')
     this.setState({addShow: true })
   },
   render(){
@@ -51,7 +50,7 @@ const Home = React.createClass({
         <h4>New <Button onClick={this.openAddModal} className="btn-success fa fa-plus-square fa-sm"></Button></h4>
         </div>
         </div>
-        <TransTable list={this.state.transactionlist} />
+        <TransTable list={this.state.transactionslist} />
         <AddModal show={this.state.addShow} submit={this.onAdd} onHide={this.closeAddModal}/>
         </div>
       )
