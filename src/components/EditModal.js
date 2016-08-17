@@ -16,9 +16,9 @@ const EditModal = React.createClass({
   changeDescription(e){
     this.setState({description: e.target.value})
   },
-  componentWillRecieveProps(next){
-    this.setState({description: next.description, value: next.value, credit: next.credit, id: next._id})
-  },
+  // componentWillReceiveProps(next){
+  //   this.setState({description: next.description, value: next.value, credit: next.credit, id: next._id})
+  // },
   select(event){
     this.setState({credit: (event.target.value === 'Credit') ? true : false})
   },
@@ -51,7 +51,7 @@ const EditModal = React.createClass({
           </FormGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.submission}>Add New Transaction</Button>
+          <Button onClick={this.submission}>Edit Transaction</Button>
           <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
         </FormGroup>
