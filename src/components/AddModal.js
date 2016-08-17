@@ -18,20 +18,22 @@ const AddModal = React.createClass({
   select(event){
     this.setState({credit: (event.target.value === 'Credit') ? true : false})
   },
-  submission(e){
-    e.preventDefault()
-    this.setState({name: '', description: '', value: 0, credit: false})
-    this.props.submit(this.state)
-    this.props.onHide()
+  submission(){
+    if(this.state.credit){
+      this.props.submit(this.state)
+    } else {
+      this.setState({value: -this.state.value})
+      this.props.submit(this.state)
+    }
+    this.setState({name: '', description: '', value: 0, credit: false, id: ''})
   },
   render() {
-    console.log('this.state.credit:', this.state.credit)
     return (
       <Modal show={this.props.show} onHide={this.props.onHide} bsSize="small" aria-labelledby="contained-modal-title-sm">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-sm">Add New Transaction</Modal.Title>
         </Modal.Header>
-         <form onSubmit={this.submission}>
+         <form>
          <FormGroup>
         <Modal.Body>
           <FormControl type="text" placeholder="Description" value={this.state.description} onChange={this.changeDescription}/>
@@ -45,7 +47,7 @@ const AddModal = React.createClass({
           </FormGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button>Add New Transaction</Button>
+          <Button onClick={this.submission}>Add New Transaction</Button>
           <Button onClick={this.props.onHide}>Close</Button>
         </Modal.Footer>
         </FormGroup>

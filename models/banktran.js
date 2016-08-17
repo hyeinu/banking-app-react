@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 let bankTransaction = new mongoose.Schema({
   description: {type: String, required: true},
+  date: {type: String},
   value: {type: Number, required: true},
-  date: {type: Date, default: Date.now},
   credit: {type: Boolean}
 });
 
